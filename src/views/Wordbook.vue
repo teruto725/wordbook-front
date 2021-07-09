@@ -1,8 +1,8 @@
 <template>
 <div>
-  <h3>Welcome </h3>
+
+    <router-view/>
 </div>
 </template>
 <script>
-
 </script>

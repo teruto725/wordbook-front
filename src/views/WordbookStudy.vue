@@ -20,9 +20,7 @@ export default {
   },
   methods: {
     getMostDiffWord() {
-      const uri = "https://wordbook-server.herokuapp.com/v1/users/most_diff";
-      console.log(this.$store.state.userId)
-      console.log(this.$store.state.userToken)
+      const uri = "https://wordbook-server.herokuapp.com/v1/wordbooks/"+this.$route.params.id+"/most_diff";
       axios.get(uri, {
         headers: {
           "Content-Type": "application/json", 

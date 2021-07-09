@@ -21,7 +21,7 @@ export default {
     doLogin() {
       const uri = "https://wordbook-server.herokuapp.com/v1/users";
       console.log(this.user.userId)
-      console.log(this.user.userId)
+
       axios.post(
         uri, 
         {
@@ -30,7 +30,6 @@ export default {
             password: this.user.password
           }
         }
-      
       ).then(response => {
         console.log("success")
         console.log(response.data.access_token)
@@ -46,5 +45,3 @@ export default {
   }
 }
 </script>
-
-7/13（火曜日)

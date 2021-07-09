@@ -4,17 +4,20 @@ import Login from "./views/Login.vue"
 import Top from "./views/Top.vue"
 import Store from '@/store/index.js'
 import Signin from './views/Signin.vue'
-import Register from './views/Register.vue'
-import Review from './views/Review.vue'
+import Wordbooks from "./views/Wordbooks.vue"
+import Wordbook from "./views/Wordbook.vue"
+import WordbookHome from "./views/WordbookHome.vue"
+import WordbookStudy from "./views/WordbookStudy.vue"
+import WordbookEdit from "./views/WordbookEdit.vue"
 Vue.use(Router)
 const routes = [
   {
-    name:"Login",
+    name:"login",
     path: "/login",
     component: Login
   },
   {
-    name: 'Top',
+    name: 'top',
     path: '/',
     component: Top,
     meta: { requiresAuth: true }
@@ -25,18 +28,37 @@ const routes = [
     component: Signin
   },
   {
-    name: "register",
-    path: "/register",
-    component: Register,
-    meta: {requiresAuth: true}
+    name: "wordbooks",
+    path: "/wordbooks",
+    component: Wordbooks,
+    meta: { requiresAuth: true},
   },
   {
-    name: "review",
-    path: "/review",
-    component: Review,
-    meta: { requiresAuth: true}
+    name: "wordbook",
+    path: "/wordbooks/:id",
+    component: Wordbook,
+    meta: { requiresAuth: true},
+    children: [
+      {
+        name: "wordbookHome",
+        path: "",
+        component: WordbookHome,
+        meta: { requiresAuth: true},
+      },
+      {
+        name: "wordbookEdit",
+        path: "edit",
+        component: WordbookEdit,
+        meta: {requiresAuth: true}
+      },
+      {
+        name: "wordbookStudy",
+        path: "study",
+        component: WordbookStudy,
+        meta: {requiresAuth: true}
+      }
+    ]
   }
-
 ]
 const router = new Router({
   mode: 'history',

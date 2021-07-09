@@ -16,11 +16,10 @@
             color = "white"
             >
         <v-tabs-slider color="white"></v-tabs-slider>
-          <v-tab to="/" >TOP</v-tab>
-          <v-tab to = "login">Login</v-tab>
-          <v-tab to = "signin">Sign in</v-tab>
-          <v-tab to = "register">Register</v-tab>
-          <v-tab to = "review"> Review</v-tab>
+          <v-tab :to="{ name: 'top'}" >TOP</v-tab>  
+          <v-tab :to="{ name: 'login'}">Login</v-tab>
+          <v-tab :to="{ name: 'signin'}">Sign in</v-tab>
+          <v-tab :to="{ name: 'wordbooks'}"> Wordbooks </v-tab>
         </v-tabs>
       </template>
     </v-app-bar>
@@ -35,6 +34,7 @@
         data(){
             return {
                 drawer: null
+
             }
         }
     }
