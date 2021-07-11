@@ -14,7 +14,7 @@
           v-model="user.password"
           :rules="pathwordRules" 
         />
-        <v-btn outlined type="submit" color = "primary">Sign In</v-btn>
+        <v-btn outlined type="submit" color = "primary">Sign Up</v-btn>
     </v-form>
 </template>
 <script>

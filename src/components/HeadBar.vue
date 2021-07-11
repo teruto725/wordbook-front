@@ -15,11 +15,12 @@
             dark
             color = "white"
             >
-        <v-tabs-slider color="white"></v-tabs-slider>
-          <v-tab v-model="is_login" :to="{ name: 'top'}" >TOP</v-tab>  
-          <v-tab v-model="not_login" :to="{ name: 'login'}">Login</v-tab>
-          <v-tab v-model="not_login" :to="{ name: 'signin'}">Sign in</v-tab>
-          <v-tab v-model="is_login" :to="{ name: 'wordbooks'}"> Wordbooks </v-tab>
+        <v-tabs-slider color="secondary"></v-tabs-slider>
+          <v-tab v-if="$is_logined" :to="{ name: 'top'}" >TOP</v-tab>  
+          <v-tab v-if="$is_logined == false" :to="{ name: 'login'}">Signin</v-tab>
+          <v-tab v-if="$is_logined == false" :to="{ name: 'signin'}">Sign Up</v-tab>
+          <v-tab v-if="$is_logined" :to="{ name: 'wordbooks'}"> Wordbooks </v-tab>
+          <v-tab v-if="$is_logined" v-on:click ="logout()"> LogOut</v-tab>
         </v-tabs>
       </template>
     </v-app-bar>
@@ -34,13 +35,13 @@
         data(){
             return {
                 drawer: null,
-                is_login: false,
-                not_login: true
             }
-        },
+        }, 
         methods: {
-            doLogin(){
-
+            logout(){
+                this.$_setIsLogined(false);
+                console.log(this.$_is_logined())
+                this.$router.push("/login");
             }
         }
     }

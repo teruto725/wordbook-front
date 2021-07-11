@@ -27,7 +27,7 @@
           v-model="user.password"
           :rules="pathwordRules" 
         />
-        <v-btn outlined type="submit" color = "primary">Login</v-btn>
+        <v-btn outlined type="submit" color = "primary">Sign In</v-btn>
     </v-form>
     </v-row>
     </div>
@@ -73,6 +73,7 @@ export default {
             userId: response.data.email,
             userToken: response.data.access_token
           });
+          this.$_setIsLogined(true)
           this.$router.push("/");
         }
       });

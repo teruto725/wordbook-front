@@ -29,7 +29,7 @@
                     icon
                     fab
                     color="primary"
-                    v-on:click = "deleteWord(wordbook.id)"
+                    v-on:click = "deleteWordbook(wordbook.id)"
                   >
                     <v-icon>mdi-delete</v-icon>
                   </v-btn>
@@ -105,7 +105,7 @@ export default {
         data: {} 
       }).then(response => {
         console.log(response.data)
-        this.wordbooks = this.words.filter(function( wordbook){
+        this.wordbooks = this.wordbooks.filter(function( wordbook){
           return wordbook.id !== response.data.id
         }); 
       });
