@@ -2,6 +2,6 @@ module.exports = {
   transpileDependencies: [
     'vuetify'
   ],
-  publicPath: '/wordbook',
+  publicPath: '/wordbook-front',
   outputDir: 'docs'
 }
