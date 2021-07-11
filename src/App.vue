@@ -2,7 +2,12 @@
 <v-app :style="{background: $vuetify.theme.themes[theme].background}">
   <head-bar/><!-- headbar --> 
   <v-main>
-    <router-view />
+    <v-row style="height: 50px">
+
+    </v-row>
+    <v-row justify="center">
+      <router-view />
+    </v-row>
   </v-main>
 
   <v-footer color = "primary" clipped-left >
@@ -10,7 +15,7 @@
         class="primary py-4 text-center "
         cols="12"
       >
-  {{ new Date().getFullYear() }} — <strong>Teru's Portfolio</strong>
+  {{ new Date().getFullYear() }} — <strong> Blawser Wordbook</strong>
     </v-col>
   </v-footer>
 </v-app>

@@ -1,11 +1,21 @@
 <template>
-    <form v-on:submit.prevent="doLogin">
-        <label>User ID</label>
-        <input type="text" placeholder="customer id" v-model="user.userId" />
-        <label>Password</label>
-        <input type="password" placeholder="password" v-model="user.password" />
-        <button type="submit">Sign In</button>
-    </form>
+    <v-form v-on:submit.prevent="doLogin" v-model="valid">
+        <v-text-field  
+          type="text" 
+          required 
+          placeholder="Email" 
+          :rules="emailRules"
+          v-model="user.userId" 
+        />
+        <v-text-field  
+          type="password" 
+          required 
+          placeholder="Password" 
+          v-model="user.password"
+          :rules="pathwordRules" 
+        />
+        <v-btn outlined type="submit" color = "primary">Sign In</v-btn>
+    </v-form>
 </template>
 <script>
 import axios from 'axios'
@@ -14,7 +24,16 @@ import axios from 'axios'
 export default {
   data() {
     return {
-      user: {}
+      user: {},
+      valid: false,
+      emailRules: [
+        v => !!v || 'E-mail is required',
+        v => /.+@.+/.test(v) || 'E-mail must be valid',
+      ],
+      pathwordRules: [
+        v => !!v || 'Password is required',
+        v => v.length > 6 || 'PassWord must be over than 6 characters ',
+      ],
     };
   },
   methods: {

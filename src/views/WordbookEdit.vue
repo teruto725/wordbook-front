@@ -1,36 +1,61 @@
 <template>
-<div>
-    <form v-on:submit.prevent="addWord">
-        <label>English</label>
-        <input type="text" placeholder="english" v-model="new_word.english" />
-        <label>Japanese</label>
-        <input type="text" placeholder="japanese" v-model="new_word.japanese" />
-        <button type="submit">Register</button>
+<v-container>
+  <v-row>
+    <v-col>
+      <v-simple-table
+        color="secondary"
+      >
+        <template v-slot:default>
+          <thead>
+            <tr>
+              <th class="text-left">
+                English
+              </th>
+              <th class="text-left">
+                Japanese
+              </th>
+              <th class="text-left">Delete</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr
+              v-for="word in words"
+              :key="word.id"
+            >
+              <td>{{ word.english }}</td>
+              <td>{{ word.japanese }}</td>
+              <td>     
+                <v-btn
+                  icon
+                  color="gray"
+                  v-on:click = "deleteWord(word.id)"
+                >
+                  <v-icon>mdi-delete</v-icon>
+                </v-btn>
+              </td>
+            </tr>
+          </tbody>
+        </template>
+      </v-simple-table>
+    </v-col>
+    <v-col cols = "2">
+    </v-col>
+    <v-col justify="center">
+      <form v-on:submit.prevent="addWord">
+
+      <v-row justify="center">
+        <v-text-field type="text" placeholder="English" v-model="new_word.english" />
+      </v-row>
+      <v-row>
+        <v-text-field type="text" placeholder="Japanese" v-model="new_word.japanese" />
+      </v-row>
+      <v-row>
+        <v-btn type="submit" outlined>AddWord</v-btn>
+      </v-row>
     </form>
-    <v-simple-table>
-      <template v-slot:default>
-        <thead>
-          <tr>
-            <th class="text-left">
-              English
-            </th>
-            <th class="text-left">
-              Japanese
-            </th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr
-            v-for="word in words"
-            :key="word.id"
-          >
-            <td>{{ word.english }}</td>
-            <td>{{ word.japanese }}</td>
-          </tr>
-        </tbody>
-      </template>
-    </v-simple-table>
-</div>
+    </v-col>
+  </v-row>
+</v-container>
 </template>
 <script>
 import axios from 'axios'
@@ -66,6 +91,8 @@ export default {
         console.log("success");
         console.log(response)
         this.words.push(response.data)
+        this.new_word.english = ""
+        this.new_word.japanese = ""
       })
       .catch(error => {
         console.log(error)
@@ -81,6 +108,23 @@ export default {
         data: {} 
       }).then(response => {
         this.words = response.data;
+      });
+    },
+    deleteWord(word_id){
+      console.log(word_id)
+      const uri = "https://wordbook-server.herokuapp.com/v1/wordbooks/"+this.$route.params.id+"/words/"+word_id;
+      axios.delete(uri, {
+        headers: { 
+          "Content-Type": "application/json", 
+          "Authorization": this.$store.state.userToken 
+        },
+        data: {} 
+      }).then(response => {
+        console.log(response.data)
+        this.words = this.words.filter(function( word){
+          return word.id !== response.data.id
+        }); 
+        console.log(this.words)
       });
     }
   }

@@ -1,11 +1,36 @@
 <template>
-    <form v-on:submit.prevent="doLogin">
-        <label>User ID</label>
-        <input type="text" placeholder="customer id" v-model="user.userId" />
-        <label>Password</label>
-        <input type="password" placeholder="password" v-model="user.password" />
-        <button type="submit">Login</button>
-    </form>
+<div>
+  <v-row>
+      <v-alert
+      dense
+      outlined
+      type="error"
+      text
+      v-model="error"
+    >
+      <strong>Email</strong> or <strong>Password</strong> is invalid.
+    </v-alert>
+  </v-row>
+  <v-row justify="center">
+    <v-form v-on:submit.prevent="doLogin" v-model="valid">
+        <v-text-field  
+          type="text" 
+          required 
+          placeholder="Email" 
+          :rules="emailRules"
+          v-model="user.userId" 
+        />
+        <v-text-field  
+          type="password" 
+          required 
+          placeholder="Password" 
+          v-model="user.password"
+          :rules="pathwordRules" 
+        />
+        <v-btn outlined type="submit" color = "primary">Login</v-btn>
+    </v-form>
+    </v-row>
+    </div>
 </template>
 <script>
 import axios from 'axios'
@@ -14,7 +39,16 @@ import axios from 'axios'
 export default {
   data() {
     return {
-      user: {}
+      user: {},
+      valid:false,
+      error:false,
+      emailRules: [
+        v => !!v || 'E-mail is required',
+        v => /.+@.+/.test(v) || 'E-mail must be valid',
+      ],
+      pathwordRules: [
+        v => !!v || 'Password is required',
+      ],
     };
   },
   methods: {
@@ -31,13 +65,16 @@ export default {
       ).then(response => {
         console.log("success")
         console.log(response.data.access_token)
-        this.$store.dispatch("auth", {
-          userId: response.data.email,
-          userToken: response.data.access_token
-        });
-        this.$router.push("/");
-      }).catch(error => {
-        console.log(error)
+        if ( response.data.access_token === undefined ){
+          this.error=true
+        }
+        else{
+          this.$store.dispatch("auth", {
+            userId: response.data.email,
+            userToken: response.data.access_token
+          });
+          this.$router.push("/");
+        }
       });
     }
   }

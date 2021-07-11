@@ -16,10 +16,10 @@
             color = "white"
             >
         <v-tabs-slider color="white"></v-tabs-slider>
-          <v-tab :to="{ name: 'top'}" >TOP</v-tab>  
-          <v-tab :to="{ name: 'login'}">Login</v-tab>
-          <v-tab :to="{ name: 'signin'}">Sign in</v-tab>
-          <v-tab :to="{ name: 'wordbooks'}"> Wordbooks </v-tab>
+          <v-tab v-model="is_login" :to="{ name: 'top'}" >TOP</v-tab>  
+          <v-tab v-model="not_login" :to="{ name: 'login'}">Login</v-tab>
+          <v-tab v-model="not_login" :to="{ name: 'signin'}">Sign in</v-tab>
+          <v-tab v-model="is_login" :to="{ name: 'wordbooks'}"> Wordbooks </v-tab>
         </v-tabs>
       </template>
     </v-app-bar>
@@ -33,7 +33,13 @@
         
         data(){
             return {
-                drawer: null
+                drawer: null,
+                is_login: false,
+                not_login: true
+            }
+        },
+        methods: {
+            doLogin(){
 
             }
         }
