@@ -94,6 +94,7 @@ export default {
         data: {} 
       }).then(response => {
         this.word = response.data
+        this.reveal = false
       });  
     },
     fault(){
@@ -106,6 +107,7 @@ export default {
         data: {} 
       }).then(response => {
         this.word = response.data
+        this.reveal = false
       });  
     }
   }
